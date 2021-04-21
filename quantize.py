@@ -4,7 +4,7 @@ import sys
 
 # get bpm and file_path from user
 bpm = int(input("What BPM did you record at? "))
-file_path = input("What is the file path of your note list? ")
+file_path = input("What is the relative file path of your note list? ")
 
 string_list = []
 
