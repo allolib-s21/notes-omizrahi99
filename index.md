@@ -8,7 +8,7 @@ To run script:
 python quantize.py
 ```
 
-It will prompt you for the BPM you recorded yor music at.
+It will prompt you for the BPM you recorded your music at.
 It will then ask for the relative file location.
 
 When finished, your note list file should be updated with the new times.
