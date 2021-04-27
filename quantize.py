@@ -1,10 +1,18 @@
+from math import log
 import sys
+import random
 
 # Script that quantizes each note to nearest 1/8th note
 
 # get bpm and file_path from user
 bpm = int(input("What BPM did you record at? "))
-file_path = input("What is the relative file path of your note list? ")
+quantize_note = input(
+    "What note would you like to quantize to? (e.g. 1/4, 1/8, 1/16...) ")
+file_path = input("What is the file path of your note list? ")
+
+denominator = int(quantize_note.split("/")[1])
+p = log(denominator, 2)
+
 
 string_list = []
 
@@ -21,22 +29,25 @@ def closest(lst, K):
     return lst[min(range(len(lst)), key=lambda i: abs(lst[i]-K))]
 
 
-# Get array of all times where 1/8th notes occur
-time_interval = 60 / (bpm * 2)
+# Create array of all times where user chosen notes occur
+time_interval = 60 / (bpm * (2**(p-1)))
 times = [0]
 for i in range(1, len(string_list)-2):
     times.append(time_interval+times[i-1])
 
+# Create offset based on 1/32 note
+time_32 = 60 / (bpm * (2**3))
+offset = random.uniform(-1*time_32, time_32)
+
 final_arr = []
 # Get file input
 for line in string_list:
-    print('hi')
-    print(len(string_list))
     # get starting value of note
     note_data = line.split()
     if note_data[0] != '#':
         # make starting value of note the closest 1/8th note value
-        note_data[1] = str(closest(times, float(note_data[1])))
+        # also add random offset to note
+        note_data[1] = str(closest(times, float(note_data[1])) + offset)
         # join array back into string
         separator = ' '
         final_arr.append(separator.join(note_data))
