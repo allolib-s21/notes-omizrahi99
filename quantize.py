@@ -36,8 +36,8 @@ for i in range(1, len(string_list)-2):
     times.append(time_interval+times[i-1])
 
 # Create offset based on 1/32 note
-time_32 = 60 / (bpm * (2**3))
-offset = random.uniform(-1*time_32, time_32)
+# time_32 = 60 / (bpm * (2**3))
+# offset = random.uniform(-1*time_32, time_32)
 
 final_arr = []
 # Get file input
@@ -47,7 +47,7 @@ for line in string_list:
     if note_data[0] != '#':
         # make starting value of note the closest 1/8th note value
         # also add random offset to note
-        note_data[1] = str(closest(times, float(note_data[1])) + offset)
+        note_data[1] = str(closest(times, float(note_data[1])))
         # join array back into string
         separator = ' '
         final_arr.append(separator.join(note_data))
